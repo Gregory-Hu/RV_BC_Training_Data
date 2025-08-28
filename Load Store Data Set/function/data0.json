@@ -1,0 +1,64 @@
+
+
+[
+  {
+    "id": "lsu_agu_code_seg0",
+    "input": {
+      "question": "下面这段RTL代码主要实现了什么？",
+      "code": "  assign unit_fault_only_first_ld_a1   = ls_uop_ctl_a1_q[`RV_BC_LS_CTL_TYPE] == `RV_BC_LS_TYPE_RVV_UNIT_FOF;"
+    },
+    "output": {
+      "架构功能":"risc-v vector指令架构中的fault only first load指令转成微操作Unit Fault only First来进行实现",
+      "微架构功能": "访存发射通道0，对微操作操作符进行译码，译码出信号来表示当前发射的微操作是Unit Fault only First微操作，",
+    }
+  }
+]
+
+
+[
+  {
+    "id": "lsu_agu_code_seg1",
+    "input": {
+      "question": "下面这段RTL代码主要实现了什么？",
+      "code": "  assign gather_fault_only_first_ld_a1 = ls_uop_ctl_a1_q[`RV_BC_LS_CTL_TYPE] == `RV_BC_LS_TYPE_RVV_GATHER_FOF;"
+    },
+    "output": {
+      "架构功能":"risc-v vector指令架构中的Segmented Unit fault only first load指令转成微操作Gather Fault only First来进行实现",
+      "微架构功能": "访存发射通道0，对微操作操作符进行译码，译码出信号来表示当前发射的微操作是Gather Fault only First微操作，"
+    }
+  }
+]
+
+
+[
+  {
+    "id": "lsu_agu_code_seg2",
+    "input": {
+      "question": "下面这段RTL代码主要实现了什么？",
+      "code": "assign ordered_gather_ld_a1          = ls_uop_ctl_a1_q[`RV_BC_LS_CTL_TYPE] == `RV_BC_LS_TYPE_RVV_ORDERED_GATHER;"
+    },
+    "output": {
+      "架构功能":"risc-v vector指令架构中的Ordered Indexed指令转成微操作Serialize Gather Load来进行实现令",
+      "微架构功能": "访存发射通道0，对微操作操作符的操作类型段进行译码，译码出信号来表示当前发射的微操作是Serialize Gather Load微操作，"
+    }
+    }
+]
+
+
+[
+  {
+    "id": "lsu_agu_code_seg2",
+    "input": {
+      "question": "下面这段RTL代码主要实现了什么？",
+      "code": "  always_ff @(posedge clk)
+                  begin
+                    rtc_uid_q[`RV_BC_UID] <= rtc_uid[`RV_BC_UID];
+                  end"
+    },
+    "output": {
+      "微架构功能": "提交部件（Commit）传递到访存单元告知最老没有提交的mop、uop ID，用来在访存部件判断一个操作是不是最老可以提交的操作",
+      "代码注释": ["rtc简称是ready to commit",
+                  "提交部件给出的uid信号传到子部件需要寄存后进行逻辑实现，从而改善时序"]
+    }
+    }
+]

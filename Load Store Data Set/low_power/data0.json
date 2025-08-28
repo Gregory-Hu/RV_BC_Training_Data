@@ -1,0 +1,30 @@
+[
+  {
+    "id": "lsu_agu_code_seg0",
+    "input": {
+      "question": "下面这段RTL代码主要实现了什么？",
+      "code": " assign agu_clk_gating_din = iss_v_i1 | iss_v_i2_q | csr_disable_ls_clk_gating;
+
+                always_ff @(posedge clk)
+                  agu_clk_gating_q <= agu_clk_gating_din
+
+                 rv_bc_clkgate u_clk_agu (
+                      .clk          (clk),
+                      .enable_i     (agu_clk_gating_q),
+                      .clk_gated    (clk_agu)
+                 );
+              "
+    },
+    "output": {
+      "架构功能":"允许软件通过CSR控制强制打开时钟",
+      "微架构功能": "只有在 load/store有操作发射的时候才打开AGU（Address Generation Unit）时钟",
+      "代码注释": [
+        "为什么需要打一拍？避免组合逻辑毛刺直接驱动时钟门控，测试模式下强制时钟打开，。",
+        "cb_dftcgen信号就是在测试模式下强制时钟打开，保证可测性。",
+        "csr_disable_ls_clk_gating信号就是CSR控制打开时钟信号"
+      ]
+    }
+  }
+]
+
+
