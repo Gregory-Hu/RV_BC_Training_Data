@@ -48,3 +48,24 @@
       blk_non_oldest_ld_q <= `RV_BC_DFF_DELAY blk_non_oldest_ld;
 `endif
   end
+
+
+
+  
+  always_ff @(posedge clk or posedge reset_i)
+  begin: u_ls1_st_pf_on_rst_full_a1_q
+    if (reset_i == 1'b1)
+      ls1_st_pf_on_rst_full_a1_q <= `RV_BC_DFF_DELAY {1{1'b0}};
+`ifdef RV_BC_XPROP_FLOP
+    else if (reset_i == 1'b0 && any_issue_v_ls1_i2_a2 == 1'b1)
+      ls1_st_pf_on_rst_full_a1_q <= `RV_BC_DFF_DELAY ls1_st_pf_on_rst_full_i2;
+    else if (reset_i == 1'b0 && any_issue_v_ls1_i2_a2 == 1'b0)
+    begin
+    end
+    else
+      ls1_st_pf_on_rst_full_a1_q <= `RV_BC_DFF_DELAY {1{1'bx}};
+`else
+    else if (any_issue_v_ls1_i2_a2 == 1'b1)
+      ls1_st_pf_on_rst_full_a1_q <= `RV_BC_DFF_DELAY ls1_st_pf_on_rst_full_i2;
+`endif
+  end

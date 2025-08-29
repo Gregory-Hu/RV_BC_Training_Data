@@ -44,10 +44,9 @@
     }
 ]
 
-
 [
   {
-    "id": "lsu_agu_code_seg2",
+    "id": "lsu_agu_code_seg3",
     "input": {
       "question": "下面这段RTL代码主要实现了什么？",
       "code": "  always_ff @(posedge clk)
@@ -62,3 +61,26 @@
     }
     }
 ]
+
+
+
+[
+  {
+    "id": "lsu_agu_code_seg4",
+    "input": {
+      "question": "下面这段RTL代码主要实现了什么？",
+      "code": "rv_bc_flush_match u_flush_match_i2 (
+                  .flush_match (flush_i2),
+                  .flush       (flush),
+                  .flush_uid   (flush_uid[`RV_BC_UID]), 
+                  .uop_uid     (uid_i2_q[`RV_BC_UID]) 
+               );"
+    },
+    "output": {
+      "微架构功能": "当乱序处理器需要刷新流水线，会告诉AGU，AGU对当前正在发射的访存操作根据和flush id比对判断当前操作是否需要被flush掉",
+      "代码注释": "rv_bc_flush_match子模块用来实现根据uop id和flush id判断当前操作是否需要被flush掉"
+    }
+    }
+]
+
+
